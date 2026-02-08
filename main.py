@@ -1,4 +1,5 @@
 """李海龙个人助手网站 - FastAPI 后端（使用 anthropic SDK）"""
+import os
 import json
 import asyncio
 import logging
@@ -9,6 +10,9 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import anthropic
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -25,9 +29,9 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# 混元大模型配置
-HUNYUAN_API_KEY = "9e2ac302-c316-41bd-9680-3d46d8f63d07"
-HUNYUAN_BASE_URL = "http://api.taiji.woa.com/openapi"
+# 混元大模型配置（从环境变量读取）
+HUNYUAN_API_KEY = os.environ.get("HUNYUAN_INTERNAL_API_KEY", "")
+HUNYUAN_BASE_URL = os.environ.get("HUNYUAN_INTERNAL_BASE_URL", "http://api.taiji.woa.com/openapi")
 HUNYUAN_MODEL = "hunyuan-2.0-thinking-20251109"
 
 # 创建 anthropic 异步客户端（全局复用）

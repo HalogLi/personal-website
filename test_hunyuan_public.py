@@ -1,15 +1,16 @@
 """测试混元大模型调用 - 公网方式（使用 OpenAI SDK）"""
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
 
+load_dotenv()
 
-API_KEY = "sk-P1IkRHaJUDHK3vt12LGHvKyr6u8NBJR8OqU4VRUocP3Anayu"
-BASE_URL = "https://api.hunyuan.cloud.tencent.com/v1"
+API_KEY = os.environ.get("HUNYUAN_PUBLIC_API_KEY", "")
+BASE_URL = os.environ.get("HUNYUAN_PUBLIC_BASE_URL", "https://api.hunyuan.cloud.tencent.com/v1")
 MODEL = "hunyuan-turbos-latest"
 
 if not API_KEY:
-    print("请设置环境变量 apikey1770550430490（混元公网 API Key）")
-    print("  export apikey1770550430490='your-api-key-here'")
+    print("请在 .env 文件中设置 HUNYUAN_PUBLIC_API_KEY")
     exit(1)
 
 client = OpenAI(

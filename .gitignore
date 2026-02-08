@@ -9,3 +9,6 @@ __pycache__/
 node_modules/
 .vscode/
 .idea/
+
+# 包含密钥的敏感文件
+云端大模型调用资源

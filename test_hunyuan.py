@@ -1,8 +1,16 @@
 """测试混元大模型调用 - 使用 anthropic SDK"""
+import os
 import anthropic
+from dotenv import load_dotenv
 
-API_KEY = "9e2ac302-c316-41bd-9680-3d46d8f63d07"
-BASE_URL = "http://api.taiji.woa.com/openapi"
+load_dotenv()
+
+API_KEY = os.environ.get("HUNYUAN_INTERNAL_API_KEY", "")
+BASE_URL = os.environ.get("HUNYUAN_INTERNAL_BASE_URL", "http://api.taiji.woa.com/openapi")
+
+if not API_KEY:
+    print("请在 .env 文件中设置 HUNYUAN_INTERNAL_API_KEY")
+    exit(1)
 
 client = anthropic.Anthropic(
     auth_token=API_KEY,
