@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>李海龙 | Personal Assistant</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="avatar">
+          <span>H</span>
+        </div>
+        <div class="brand">
+          <h1>李海龙</h1>
+          <p>Personal Assistant</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item active" data-page="chat" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>AI 对话</span>
+        </a>
+        <a class="nav-item" data-page="profile" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>个人简介</span>
+        </a>
+        <a class="nav-item" data-page="experience" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          <span>工作经历</span>
+        </a>
+        <a class="nav-item" data-page="projects" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span>项目成果</span>
+        </a>
+        <a class="nav-item" data-page="skills" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>技能特长</span>
+        </a>
+        <a class="nav-item" data-page="settings" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          <span>设置</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-dot"></div>
+        <span>混元大模型 <span id="statusText">检测中...</span></span>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Chat Page -->
+      <div class="page active" id="page-chat">
+        <div class="page-header">
+          <div>
+            <h2>AI 助手对话</h2>
+            <p>向我了解李海龙的任何信息</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-icon" id="clearChat" title="清空对话">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="chat-container">
+          <div class="quick-actions">
+            <button class="quick-btn" data-q="介绍一下李海龙的工作经历">工作经历</button>
+            <button class="quick-btn" data-q="李海龙擅长什么技术？">技术栈</button>
+            <button class="quick-btn" data-q="李海龙做过哪些项目？">项目成果</button>
+            <button class="quick-btn" data-q="李海龙的教育背景是什么？">教育背景</button>
+          </div>
+
+          <div class="messages" id="messages">
+            <div class="message assistant">
+              <div class="message-avatar"><span>AI</span></div>
+              <div class="message-content">
+                <div class="message-bubble">
+                  你好！我是李海龙的个人 AI 助手，可以回答关于他的工作经历、项目成果、技术技能等任何问题。请随时提问！
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form class="chat-input" id="chatForm">
+            <div class="input-wrapper">
+              <textarea id="userInput" placeholder="输入你的问题..." rows="1"></textarea>
+              <button type="submit" class="send-btn" id="sendBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Profile Page -->
+      <div class="page" id="page-profile">
+        <div class="page-header">
+          <div>
+            <h2>个人简介</h2>
+            <p>算法工程师 · 风控方向</p>
+          </div>
+        </div>
+        <div class="content-scroll">
+          <div class="profile-hero">
+            <div class="profile-avatar"><span>李</span></div>
+            <div class="profile-info">
+              <h3>李海龙</h3>
+              <p class="profile-title">算法工程师 · 风控算法 · 图与大模型 · 反欺诈</p>
+              <p class="profile-desc">具备社交反欺诈与支付安全风控经验，擅长图算法、时序建模与多模态融合。关注 Graph+LLM 的风险识别与可解释分析，推动效果与业务落地。</p>
+              <div class="profile-tags">
+                <span class="tag">西安</span>
+                <span class="tag">17691076589@163.com</span>
+                <span class="tag">17691076589</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h4 class="section-label">教育背景</h4>
+            <div class="info-cards">
+              <div class="info-card">
+                <div class="card-icon edu"></div>
+                <div>
+                  <h5>西安电子科技大学</h5>
+                  <p>硕士 · 电子科学与技术</p>
+                  <span class="card-meta">2018.06 - 2021.05</span>
+                </div>
+              </div>
+              <div class="info-card">
+                <div class="card-icon edu"></div>
+                <div>
+                  <h5>西安电子科技大学</h5>
+                  <p>本科 · 智能科学与技术</p>
+                  <span class="card-meta">2014.07 - 2018.05</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h4 class="section-label">研究方向</h4>
+            <div class="research-tags">
+              <span>图像分类</span>
+              <span>目标检测</span>
+              <span>多模态聚类</span>
+              <span>图学习</span>
+              <span>LLM 分布式训练</span>
+              <span>RAG</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h4 class="section-label">荣誉奖项</h4>
+            <div class="awards-list">
+              <div class="award-item">
+                <div class="award-icon">🏅</div>
+                <span>第二届"互联网+"大学生创新创业西北赛区银奖</span>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🏆</div>
+                <span>美国数学建模大赛 H 奖</span>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🥇</div>
+                <span>中兴"捧月"算法挑战赛 全国优胜奖（前 60）</span>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">📜</div>
+                <span>专利：电竞数据可视化系统及方法</span>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">📜</div>
+                <span>专利：电竞图像数字与图标信息获取方法</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Page -->
+      <div class="page" id="page-experience">
+        <div class="page-header">
+          <div>
+            <h2>工作经历</h2>
+            <p>腾讯科技有限公司 · 风控算法</p>
+          </div>
+        </div>
+        <div class="content-scroll">
+          <div class="timeline">
+            <div class="timeline-card">
+              <div class="timeline-dot"></div>
+              <div class="timeline-body">
+                <div class="timeline-header">
+                  <h4>社交反欺诈</h4>
+                  <span class="badge">项目负责人</span>
+                </div>
+                <p class="timeline-date">2021.07 - 至今</p>
+                <ul>
+                  <li>构建图算法召回、时序算法精排、梯度打击三层实时反欺诈治理架构</li>
+                  <li>基于 WegraphDB 搭建社交图数据，封装扩散算子并引入标签传播保护可信账号</li>
+                  <li>构建 GraphSage 欺诈账号与群识别模型，融合社交知识图谱多维边信息</li>
+                </ul>
+                <div class="metric-row">
+                  <div class="metric">
+                    <span class="metric-value">85%</span>
+                    <span class="metric-label">受害者下降</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-card">
+              <div class="timeline-dot"></div>
+              <div class="timeline-body">
+                <div class="timeline-header">
+                  <h4>支付安全</h4>
+                  <span class="badge">项目负责人</span>
+                </div>
+                <p class="timeline-date">2024 - 2025</p>
+                <ul>
+                  <li>覆盖视频号红包、亲属卡、PC 红包等新业务风控功能与埋点接入</li>
+                  <li>基于 Louvain 进行收款销赃团伙挖掘，构建监控与发现体系</li>
+                  <li>多模态欺诈收款号识别：融合图结构、文本、行为时序特征</li>
+                </ul>
+                <div class="metric-row">
+                  <div class="metric">
+                    <span class="metric-value">85%</span>
+                    <span class="metric-label">召回覆盖率</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">90%</span>
+                    <span class="metric-label">事前干预率</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">65%</span>
+                    <span class="metric-label">资损下降</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-card">
+              <div class="timeline-dot"></div>
+              <div class="timeline-body">
+                <div class="timeline-header">
+                  <h4>Graph + LLM 欺诈识别</h4>
+                  <span class="badge accent">前沿探索</span>
+                </div>
+                <p class="timeline-date">2024 - 2025</p>
+                <ul>
+                  <li>以子图文本描述为输入进行 Qwen3-1.7B 全参微调</li>
+                  <li>基于 AgentFlow 构建图异常分析智能体，结合 RAG 输出可解释结论报告</li>
+                </ul>
+                <div class="metric-row">
+                  <div class="metric">
+                    <span class="metric-value">90.3%</span>
+                    <span class="metric-label">准确率</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section" style="margin-top:32px">
+            <h4 class="section-label">实习经历</h4>
+            <div class="timeline-card" style="border-left:none;padding-left:0">
+              <div class="timeline-body">
+                <div class="timeline-header">
+                  <h4>杭州海康威视研究院</h4>
+                  <span class="badge">智能算法工程师</span>
+                </div>
+                <ul>
+                  <li>EfficientNet 进行人/车/动物三分类，部署 ONNX-Caffe</li>
+                  <li>通过数据增强、损失函数改进、标签平滑与注意力机制优化</li>
+                </ul>
+                <div class="metric-row">
+                  <div class="metric">
+                    <span class="metric-value">91%→96%</span>
+                    <span class="metric-label">准确率提升</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects Page -->
+      <div class="page" id="page-projects">
+        <div class="page-header">
+          <div>
+            <h2>项目成果</h2>
+            <p>电竞视频 · 多模态 · 推荐系统</p>
+          </div>
+        </div>
+        <div class="content-scroll">
+          <div class="project-grid">
+            <div class="project-card">
+              <div class="project-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              </div>
+              <h4>关键帧提取</h4>
+              <p>基于 YOLOv3 目标检测提取信息量最大帧</p>
+              <div class="project-stat">
+                <span class="stat-value">93%</span>
+                <span class="stat-label">mAP</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <h4>多模态聚类</h4>
+              <p>DMSC 聚类网络融合图像、音频、文本与运动特征</p>
+              <div class="project-stat">
+                <span class="stat-label">深度多模态子空间聚类</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <h4>推荐系统</h4>
+              <p>实现"AI看电竞"平台，智能推荐精彩内容</p>
+              <div class="project-stat">
+                <span class="stat-value">92%</span>
+                <span class="stat-label">推荐准确率</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Page -->
+      <div class="page" id="page-skills">
+        <div class="page-header">
+          <div>
+            <h2>技能特长</h2>
+            <p>技术栈与能力全景</p>
+          </div>
+        </div>
+        <div class="content-scroll">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-header">
+                <h4>语言与工程</h4>
+                <div class="skill-level">
+                  <div class="level-bar" style="width:90%"></div>
+                </div>
+              </div>
+              <div class="skill-tags">
+                <span>Python</span><span>C++</span><span>SQL</span><span>Lua</span>
+              </div>
+              <div class="skill-tags">
+                <span>Flink</span><span>Spark</span><span>Hive</span><span>HDFS</span><span>Neo4j</span>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-header">
+                <h4>深度学习</h4>
+                <div class="skill-level">
+                  <div class="level-bar" style="width:85%"></div>
+                </div>
+              </div>
+              <div class="skill-tags">
+                <span>PyTorch</span><span>TensorFlow</span><span>Caffe</span>
+              </div>
+              <div class="skill-tags">
+                <span>CNN</span><span>RNN</span><span>GNN</span><span>Transformer</span>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-header">
+                <h4>大模型方向</h4>
+                <div class="skill-level">
+                  <div class="level-bar" style="width:80%"></div>
+                </div>
+              </div>
+              <div class="skill-tags">
+                <span>LangChain</span><span>Hugging Face</span><span>DeepSpeed</span>
+              </div>
+              <div class="skill-tags">
+                <span>LLM 分布式训练</span><span>RAG</span><span>可解释图分析</span>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-header">
+                <h4>方法论</h4>
+                <div class="skill-level">
+                  <div class="level-bar" style="width:88%"></div>
+                </div>
+              </div>
+              <div class="skill-tags">
+                <span>特征挖掘</span><span>异常检测</span><span>图传播</span><span>团伙挖掘</span>
+              </div>
+              <div class="skill-tags">
+                <span>风险识别</span><span>策略体系</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Page -->
+      <div class="page" id="page-settings">
+        <div class="page-header">
+          <div>
+            <h2>设置</h2>
+            <p>AI 模型配置</p>
+          </div>
+        </div>
+        <div class="content-scroll">
+          <div class="settings-form">
+            <div class="info-card" style="margin-bottom:20px">
+              <div>
+                <h5>当前模型</h5>
+                <p>混元大模型 (hunyuan-2.0-thinking)</p>
+                <span class="card-meta">通过后端 API 代理调用，无需本地部署</span>
+              </div>
+            </div>
+            <p class="form-hint">AI 对话由服务端调用腾讯混元大模型，支持流式输出。</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
